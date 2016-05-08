@@ -43,3 +43,6 @@ end
 
 # pry
 gem 'pry-rails'
+gem 'mechanize'
+gem 'devise'
+gem 'paperclip'

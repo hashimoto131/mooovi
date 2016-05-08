@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
       <title>映画レビューサイト</title>
-      <link href='http://fonts.googleapis.com/css?family=Signika:700,300,400,600' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=roboto:700,300,400,600' rel='stylesheet' type='text/css'>
       <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
       <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
       <%= csrf_meta_tags %>
@@ -18,6 +18,14 @@
               <li class="logo" style="float: left">
                 <a href="/">mooovi</a>
               </li>
+              <% if user_signed_in? %>
+                <li class="entry_button" style="float: right">
+                  <%= link_to "サインアウト", destroy_user_session_path, method: :delete %>
+                </li>
+                <li class="entry_button" style="float: right">
+                  <a href="/users/<%= current_user.id %>">マイページ</a>
+                </li>
+              <% end %>
               <li class="entry_button" style="float: right">
                 <a href="/products/search">投稿する</a>
               </li>
@@ -32,7 +40,7 @@
               <i class="icon-crown color-gray-light"></i>投稿ランキング
             </h4>
             <ul class="listview listview--condensed text-small">
-              <% [].each.with_index(1) do |product, i| %>
+              <% @ranking.each.with_index(1) do |product, i| %>
               <li data-cinema-id="346394">
                 <a href="/products/<%= product.id %>">
                   <div class="box">
@@ -45,7 +53,7 @@
                       <p class="text-xsmall no-space">
                         <%= product.title %>
                       </p>
-                      <img src="<%= product.image_url %>" alt="">
+                      <img src="<%= product.image_url %>" alt="<%= product.title %>">
                     </div>
                   </div>
                 </a>
